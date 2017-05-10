@@ -62,21 +62,32 @@
 
         public async Task Stop()
         {
+            Console.Out.WriteLine("Stopping pump " + path);
             cancellationTokenSource.Cancel();
+
+            Console.Out.WriteLine("Stopping poller " + path);
 
             await delayedMessagePoller.Stop()
                 .ConfigureAwait(false);
 
+            Console.Out.WriteLine("Waiting for pump task " + path);
+
             await messagePumpTask
                 .ConfigureAwait(false);
+
+            Console.Out.WriteLine("Waiting for limiter " + path);
 
             while (concurrencyLimiter.CurrentCount != maxConcurrency)
             {
                 await Task.Delay(50, CancellationToken.None)
                     .ConfigureAwait(false);
             }
+            Console.Out.WriteLine("Disposing limiter " + path);
 
             concurrencyLimiter.Dispose();
+
+
+            Console.Out.WriteLine("Stop complete " + path);
         }
 
         [DebuggerNonUserCode]

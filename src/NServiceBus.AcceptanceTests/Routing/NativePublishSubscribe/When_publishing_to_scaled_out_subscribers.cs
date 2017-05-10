@@ -50,7 +50,7 @@
         {
             public Publisher()
             {
-                EndpointSetup<DefaultServer>();
+                EndpointSetup<DefaultServer>(c=>c.Recoverability().DisableLegacyRetriesSatellite());
             }
         }
 
@@ -58,7 +58,7 @@
         {
             public SubscriberA()
             {
-                EndpointSetup<DefaultServer>();
+                EndpointSetup<DefaultServer>(c => c.Recoverability().DisableLegacyRetriesSatellite());
             }
 
             public class MyEventHandler : IHandleMessages<MyEvent>
@@ -77,7 +77,7 @@
         {
             public SubscriberB()
             {
-                EndpointSetup<DefaultServer>();
+                EndpointSetup<DefaultServer>(c => c.Recoverability().DisableLegacyRetriesSatellite());
             }
 
             public class MyEventHandler : IHandleMessages<MyEvent>

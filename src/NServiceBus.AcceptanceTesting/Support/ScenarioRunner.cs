@@ -166,7 +166,7 @@
 
         static Task StopEndpoints(IEnumerable<ComponentRunner> endpoints)
         {
-            var stopTimeout = TimeSpan.FromMinutes(2);
+            var stopTimeout = TimeSpan.FromSeconds(20);
             return endpoints.Select(async endpoint =>
             {
                 await Task.Yield(); // ensure all endpoints are stopped even if a synchronous implementation throws
